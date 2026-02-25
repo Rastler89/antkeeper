@@ -1,0 +1,5 @@
+Analyzing app...
+
+warning • Unused import: 'package:ant_manager/models/log.dart' • lib/screens/colony_detail_screen.dart:2:8 • unused_import
+   info • Don't invoke 'print' in production code • lib/services/storage_service.dart:37:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/storage_service.dart:58:7 • avoid_print
