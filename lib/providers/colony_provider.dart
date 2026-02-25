@@ -2,18 +2,23 @@ import 'package:ant_manager/models/colony.dart';
 import 'package:ant_manager/models/log.dart';
 import 'package:ant_manager/models/population_entry.dart';
 import 'package:ant_manager/services/storage_service.dart';
+import 'package:ant_manager/services/sync_service.dart';
 import 'package:flutter/foundation.dart';
 
 class ColonyProvider with ChangeNotifier {
   List<Colony> _colonies = [];
   final StorageService _storageService = StorageService();
+  final SyncService? _syncService;
   bool _isLoading = false;
 
   List<Colony> get colonies => _colonies;
   bool get isLoading => _isLoading;
 
-  ColonyProvider() {
+  ColonyProvider([this._syncService]) {
     loadColonies();
+    _syncService?.onDataChanged.listen((_) {
+      loadColonies();
+    });
   }
 
   Future<void> loadColonies() async {

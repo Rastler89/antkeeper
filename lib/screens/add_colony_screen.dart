@@ -3,6 +3,8 @@ import 'package:ant_manager/models/colony.dart';
 import 'package:ant_manager/providers/colony_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 class AddColonyScreen extends StatefulWidget {
@@ -39,13 +41,21 @@ class _AddColonyScreenState extends State<AddColonyScreen> {
     }
   }
 
-  void _saveColony() {
+  Future<void> _saveColony() async {
     if (_formKey.currentState!.validate()) {
       final name = _nameController.text;
       final species = _speciesController.text;
       final population = int.tryParse(_populationController.text) ?? 0;
       final description = _descriptionController.text;
       final id = DateTime.now().millisecondsSinceEpoch.toString();
+
+      List<String> savedImages = [];
+      if (_selectedImage != null) {
+        final directory = await getApplicationDocumentsDirectory();
+        final fileName = path.basename(_selectedImage!.path);
+        final savedImage = await _selectedImage!.copy('${directory.path}/$fileName');
+        savedImages.add(fileName); // Store only filename
+      }
 
       final newColony = Colony(
         id: id,
@@ -54,11 +64,13 @@ class _AddColonyScreenState extends State<AddColonyScreen> {
         population: population,
         description: description,
         acquisitionDate: DateTime.now(),
-        images: _selectedImage != null ? [_selectedImage!.path] : [],
+        images: savedImages,
       );
 
-      Provider.of<ColonyProvider>(context, listen: false).addColony(newColony);
-      Navigator.of(context).pop();
+      if (mounted) {
+        Provider.of<ColonyProvider>(context, listen: false).addColony(newColony);
+        Navigator.of(context).pop();
+      }
     }
   }
 

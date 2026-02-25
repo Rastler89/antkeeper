@@ -1,17 +1,22 @@
 import 'package:ant_manager/models/stock_item.dart';
 import 'package:ant_manager/services/storage_service.dart';
+import 'package:ant_manager/services/sync_service.dart';
 import 'package:flutter/foundation.dart';
 
 class StockProvider with ChangeNotifier {
   List<StockItem> _stock = [];
   final StorageService _storageService = StorageService();
+  final SyncService? _syncService;
   bool _isLoading = false;
 
   List<StockItem> get stock => _stock;
   bool get isLoading => _isLoading;
 
-  StockProvider() {
+  StockProvider([this._syncService]) {
     loadStock();
+    _syncService?.onDataChanged.listen((_) {
+      loadStock();
+    });
   }
 
   Future<void> loadStock() async {

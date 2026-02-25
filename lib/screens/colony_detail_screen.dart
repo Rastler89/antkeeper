@@ -4,12 +4,27 @@ import 'package:ant_manager/providers/colony_provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 class ColonyDetailScreen extends StatelessWidget {
   final String colonyId;
 
   const ColonyDetailScreen({super.key, required this.colonyId});
+
+  Future<File?> _getImageFile(String filename) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/$filename');
+    if (await file.exists()) {
+      return file;
+    }
+    // Fallback for legacy paths (full paths) if any
+    final legacyFile = File(filename);
+    if (await legacyFile.exists()) {
+      return legacyFile;
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,15 +95,28 @@ class ColonyDetailScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(right: 8.0),
-                      child: Image.file(
-                        File(colony.images[index]),
-                        height: 200,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Container(
-                                width: 200,
-                                color: Colors.grey,
-                                child: const Icon(Icons.broken_image)),
+                      child: FutureBuilder<File?>(
+                        future: _getImageFile(colony.images[index]),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done &&
+                              snapshot.data != null) {
+                            return Image.file(
+                              snapshot.data!,
+                              height: 200,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Container(
+                                      width: 200,
+                                      color: Colors.grey,
+                                      child: const Icon(Icons.broken_image)),
+                            );
+                          }
+                          return Container(
+                              width: 200,
+                              color: Colors.grey[300],
+                              child: const Center(
+                                  child: CircularProgressIndicator()));
+                        },
                       ),
                     );
                   },

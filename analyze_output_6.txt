@@ -1,0 +1,22 @@
+Resolving dependencies...
+Downloading packages...
+  characters 1.4.0 (1.4.1 available)
+  googleapis_auth 2.0.0 (2.1.0 available)
+  matcher 0.12.17 (0.12.18 available)
+  material_color_utilities 0.11.1 (0.13.0 available)
+  meta 1.17.0 (1.18.1 available)
+  test_api 0.7.7 (0.7.9 available)
+Got dependencies!
+6 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Analyzing app...
+
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/screens/settings_screen.dart:132:46 • use_build_context_synchronously
+warning • Unused import: 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart' • lib/services/google_drive_service.dart:2:8 • unused_import
+warning • Unused import: 'package:googleapis_auth/googleapis_auth.dart' • lib/services/google_drive_service.dart:6:8 • unused_import
+  error • The class 'GoogleSignIn' doesn't have an unnamed constructor • lib/services/google_drive_service.dart:9:38 • new_with_undefined_constructor_default
+  error • The getter 'onCurrentUserChanged' isn't defined for the type 'GoogleSignIn' • lib/services/google_drive_service.dart:17:71 • undefined_getter
+  error • The getter 'onCurrentUserChanged' isn't defined for the type 'GoogleSignIn' • lib/services/google_drive_service.dart:21:19 • undefined_getter
+  error • The method 'authenticatedClient' isn't defined for the type 'GoogleSignIn' • lib/services/google_drive_service.dart:25:44 • undefined_method
+  error • The method 'signInSilently' isn't defined for the type 'GoogleSignIn' • lib/services/google_drive_service.dart:34:25 • undefined_method
+  error • The method 'signIn' isn't defined for the type 'GoogleSignIn' • lib/services/google_drive_service.dart:39:43 • undefined_method

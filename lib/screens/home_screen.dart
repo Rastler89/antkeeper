@@ -4,6 +4,7 @@ import 'package:ant_manager/screens/add_colony_screen.dart';
 import 'package:ant_manager/screens/breeding_sheets_screen.dart';
 import 'package:ant_manager/screens/colony_list_screen.dart';
 import 'package:ant_manager/screens/export_screen.dart';
+import 'package:ant_manager/screens/settings_screen.dart';
 import 'package:ant_manager/screens/stock_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -65,8 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Widget>? get _appBarActions {
+    final actions = <Widget>[];
+
     if (_selectedIndex == 0) {
-      return [
+      actions.add(
         IconButton(
           icon: const Icon(Icons.qr_code),
           onPressed: () {
@@ -75,9 +78,21 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           },
         ),
-      ];
+      );
     }
-    return null;
+
+    actions.add(
+      IconButton(
+        icon: const Icon(Icons.settings),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const SettingsScreen()),
+          );
+        },
+      ),
+    );
+
+    return actions;
   }
 
   void _showAddStockDialog(BuildContext context) {
