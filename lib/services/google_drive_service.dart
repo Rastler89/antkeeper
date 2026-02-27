@@ -53,6 +53,24 @@ class GoogleDriveService {
     }
   }
 
+  // Returns an error message if failed, or null if success.
+  Future<String?> signInWithFeedback() async {
+    try {
+      final account = await _googleSignIn.signIn();
+      if (account == null) {
+        // User cancelled
+        return 'Sign in cancelled by user';
+      }
+      return null;
+    } catch (error) {
+      if (kDebugMode) {
+        print('Error signing in: $error');
+      }
+      // Return a user-friendly error or the raw error
+      return 'Sign in error: $error';
+    }
+  }
+
   Future<void> signOut() async {
     await _googleSignIn.disconnect();
   }

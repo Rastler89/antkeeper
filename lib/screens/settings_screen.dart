@@ -81,10 +81,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
             )
           : ElevatedButton(
               onPressed: () async {
-                final account = await driveService.signIn();
-                if (account == null && context.mounted) {
+                final error = await driveService.signInWithFeedback();
+                if (error != null && context.mounted) {
+                  // Only show error if it's not a simple cancellation (optional, but good UX)
+                  // For now, let's show whatever feedback we got
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(l10n.signInFailed)),
+                    SnackBar(
+                      content: Text('${l10n.signInFailed}: $error'),
+                      duration: const Duration(seconds: 5),
+                    ),
                   );
                 }
               },
