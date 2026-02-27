@@ -172,4 +172,8 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get sugarWaterInsects => 'Agua con azúcar, insectos';
+
+  @override
+  String get errorDeveloper =>
+      'Error de configuración. Verifique la huella digital SHA-1 de su aplicación en la consola de Google Cloud.';
 }

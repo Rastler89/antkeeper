@@ -421,6 +421,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sugar water, insects'**
   String get sugarWaterInsects;
+
+  /// No description provided for @errorDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Configuration error. Please verify your app\'s SHA-1 fingerprint in the Google Cloud Console.'**
+  String get errorDeveloper;
 }
 
 class _AppLocalizationsDelegate

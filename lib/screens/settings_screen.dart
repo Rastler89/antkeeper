@@ -83,12 +83,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () async {
                 final error = await driveService.signInWithFeedback();
                 if (error != null && context.mounted) {
-                  // Only show error if it's not a simple cancellation (optional, but good UX)
-                  // For now, let's show whatever feedback we got
+                  String message = '${l10n.signInFailed}: $error';
+
+                  // Check for specific known errors to provide better guidance
+                  if (error.contains('ApiException: 10')) {
+                    message = '${l10n.signInFailed}: ${l10n.errorDeveloper}';
+                  }
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('${l10n.signInFailed}: $error'),
-                      duration: const Duration(seconds: 5),
+                      content: Text(message),
+                      duration: const Duration(seconds: 8),
+                      action: SnackBarAction(
+                        label: 'OK',
+                        onPressed: () {},
+                      ),
                     ),
                   );
                 }

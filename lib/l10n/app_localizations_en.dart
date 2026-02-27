@@ -172,4 +172,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sugarWaterInsects => 'Sugar water, insects';
+
+  @override
+  String get errorDeveloper =>
+      'Configuration error. Please verify your app\'s SHA-1 fingerprint in the Google Cloud Console.';
 }

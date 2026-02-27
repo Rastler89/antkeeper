@@ -52,5 +52,6 @@
     "medium": "Medium",
     "hard": "Hard",
     "seedsInsects": "Seeds, insects",
-    "sugarWaterInsects": "Sugar water, insects"
+    "sugarWaterInsects": "Sugar water, insects",
+    "errorDeveloper": "Configuration error. Please verify your app's SHA-1 fingerprint in the Google Cloud Console."
 }
