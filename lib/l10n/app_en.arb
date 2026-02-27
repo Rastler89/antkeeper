@@ -35,5 +35,22 @@
     "quantity": "Quantity",
     "unit": "Unit (e.g. g, ml)",
     "cancel": "Cancel",
-    "add": "Add"
+    "add": "Add",
+    "signInFailed": "Sign in failed",
+    "difficulty": "Difficulty",
+    "temperature": "Temperature",
+    "humidity": "Humidity",
+    "hibernation": "Hibernation",
+    "food": "Food",
+    "messorBarbarusDesc": "Granivorous species. Easy to keep. Needs a humidity gradient.",
+    "messorBarbarusHibernation": "Yes (Nov-Mar at 10-15°C)",
+    "lasiusNigerDesc": "Common garden ant. Very hardy and fast growing.",
+    "lasiusNigerHibernation": "Yes (Oct-Mar at 5-10°C)",
+    "camponotusCruentatusDesc": "Large species. Needs heat. Slow development initially.",
+    "camponotusCruentatusHibernation": "Yes (Nov-Feb at 10-15°C)",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "seedsInsects": "Seeds, insects",
+    "sugarWaterInsects": "Sugar water, insects"
 }

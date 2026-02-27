@@ -118,4 +118,58 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get add => 'Añadir';
+
+  @override
+  String get signInFailed => 'Inicio de sesión fallido';
+
+  @override
+  String get difficulty => 'Dificultad';
+
+  @override
+  String get temperature => 'Temperatura';
+
+  @override
+  String get humidity => 'Humedad';
+
+  @override
+  String get hibernation => 'Hibernación';
+
+  @override
+  String get food => 'Alimentación';
+
+  @override
+  String get messorBarbarusDesc =>
+      'Especie granívora. Fácil de mantener. Necesita gradiente de humedad.';
+
+  @override
+  String get messorBarbarusHibernation => 'Sí (Nov-Mar a 10-15°C)';
+
+  @override
+  String get lasiusNigerDesc =>
+      'Hormiga común de jardín. Muy resistente y de crecimiento rápido.';
+
+  @override
+  String get lasiusNigerHibernation => 'Sí (Oct-Mar a 5-10°C)';
+
+  @override
+  String get camponotusCruentatusDesc =>
+      'Especie grande. Necesita calor. Desarrollo lento inicialmente.';
+
+  @override
+  String get camponotusCruentatusHibernation => 'Sí (Nov-Feb a 10-15°C)';
+
+  @override
+  String get easy => 'Fácil';
+
+  @override
+  String get medium => 'Medio';
+
+  @override
+  String get hard => 'Difícil';
+
+  @override
+  String get seedsInsects => 'Semillas, insectos';
+
+  @override
+  String get sugarWaterInsects => 'Agua con azúcar, insectos';
 }

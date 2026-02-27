@@ -35,5 +35,22 @@
     "quantity": "Cantidad",
     "unit": "Unidad (ej. g, ml)",
     "cancel": "Cancelar",
-    "add": "Añadir"
+    "add": "Añadir",
+    "signInFailed": "Inicio de sesión fallido",
+    "difficulty": "Dificultad",
+    "temperature": "Temperatura",
+    "humidity": "Humedad",
+    "hibernation": "Hibernación",
+    "food": "Alimentación",
+    "messorBarbarusDesc": "Especie granívora. Fácil de mantener. Necesita gradiente de humedad.",
+    "messorBarbarusHibernation": "Sí (Nov-Mar a 10-15°C)",
+    "lasiusNigerDesc": "Hormiga común de jardín. Muy resistente y de crecimiento rápido.",
+    "lasiusNigerHibernation": "Sí (Oct-Mar a 5-10°C)",
+    "camponotusCruentatusDesc": "Especie grande. Necesita calor. Desarrollo lento inicialmente.",
+    "camponotusCruentatusHibernation": "Sí (Nov-Feb a 10-15°C)",
+    "easy": "Fácil",
+    "medium": "Medio",
+    "hard": "Difícil",
+    "seedsInsects": "Semillas, insectos",
+    "sugarWaterInsects": "Agua con azúcar, insectos"
 }

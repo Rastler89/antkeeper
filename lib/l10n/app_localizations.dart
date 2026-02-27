@@ -319,6 +319,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add'**
   String get add;
+
+  /// No description provided for @signInFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in failed'**
+  String get signInFailed;
+
+  /// No description provided for @difficulty.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty'**
+  String get difficulty;
+
+  /// No description provided for @temperature.
+  ///
+  /// In en, this message translates to:
+  /// **'Temperature'**
+  String get temperature;
+
+  /// No description provided for @humidity.
+  ///
+  /// In en, this message translates to:
+  /// **'Humidity'**
+  String get humidity;
+
+  /// No description provided for @hibernation.
+  ///
+  /// In en, this message translates to:
+  /// **'Hibernation'**
+  String get hibernation;
+
+  /// No description provided for @food.
+  ///
+  /// In en, this message translates to:
+  /// **'Food'**
+  String get food;
+
+  /// No description provided for @messorBarbarusDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Granivorous species. Easy to keep. Needs a humidity gradient.'**
+  String get messorBarbarusDesc;
+
+  /// No description provided for @messorBarbarusHibernation.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes (Nov-Mar at 10-15°C)'**
+  String get messorBarbarusHibernation;
+
+  /// No description provided for @lasiusNigerDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Common garden ant. Very hardy and fast growing.'**
+  String get lasiusNigerDesc;
+
+  /// No description provided for @lasiusNigerHibernation.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes (Oct-Mar at 5-10°C)'**
+  String get lasiusNigerHibernation;
+
+  /// No description provided for @camponotusCruentatusDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Large species. Needs heat. Slow development initially.'**
+  String get camponotusCruentatusDesc;
+
+  /// No description provided for @camponotusCruentatusHibernation.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes (Nov-Feb at 10-15°C)'**
+  String get camponotusCruentatusHibernation;
+
+  /// No description provided for @easy.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy'**
+  String get easy;
+
+  /// No description provided for @medium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get medium;
+
+  /// No description provided for @hard.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard'**
+  String get hard;
+
+  /// No description provided for @seedsInsects.
+  ///
+  /// In en, this message translates to:
+  /// **'Seeds, insects'**
+  String get seedsInsects;
+
+  /// No description provided for @sugarWaterInsects.
+  ///
+  /// In en, this message translates to:
+  /// **'Sugar water, insects'**
+  String get sugarWaterInsects;
 }
 
 class _AppLocalizationsDelegate

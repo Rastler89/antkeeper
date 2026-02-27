@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:ant_manager/l10n/app_localizations.dart';
 import 'package:ant_manager/models/colony.dart';
 import 'package:ant_manager/providers/colony_provider.dart';
+import 'package:ant_manager/services/breeding_sheet_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
@@ -18,16 +19,15 @@ class AddColonyScreen extends StatefulWidget {
 class _AddColonyScreenState extends State<AddColonyScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _speciesController = TextEditingController();
   final _populationController = TextEditingController();
   final _descriptionController = TextEditingController();
   File? _selectedImage;
   final ImagePicker _picker = ImagePicker();
+  String? _selectedSpecies;
 
   @override
   void dispose() {
     _nameController.dispose();
-    _speciesController.dispose();
     _populationController.dispose();
     _descriptionController.dispose();
     super.dispose();
@@ -45,7 +45,7 @@ class _AddColonyScreenState extends State<AddColonyScreen> {
   Future<void> _saveColony() async {
     if (_formKey.currentState!.validate()) {
       final name = _nameController.text;
-      final species = _speciesController.text;
+      final species = _selectedSpecies!;
       final population = int.tryParse(_populationController.text) ?? 0;
       final description = _descriptionController.text;
       final id = DateTime.now().millisecondsSinceEpoch.toString();
@@ -78,6 +78,9 @@ class _AddColonyScreenState extends State<AddColonyScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final sheets = BreedingSheetService(l10n).getSheets();
+    final speciesList = sheets.map((e) => e.species).toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.addColony),
@@ -123,9 +126,20 @@ class _AddColonyScreenState extends State<AddColonyScreen> {
                   return null;
                 },
               ),
-              TextFormField(
-                controller: _speciesController,
+              DropdownButtonFormField<String>(
+                value: _selectedSpecies,
                 decoration: InputDecoration(labelText: l10n.species),
+                items: speciesList.map((String species) {
+                  return DropdownMenuItem<String>(
+                    value: species,
+                    child: Text(species),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedSpecies = newValue;
+                  });
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return l10n.pleaseEnterSpecies;

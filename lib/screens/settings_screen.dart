@@ -81,8 +81,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             )
           : ElevatedButton(
               onPressed: () async {
-                await driveService.signIn();
-                // StreamBuilder will handle rebuild
+                final account = await driveService.signIn();
+                if (account == null && context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(l10n.signInFailed)),
+                  );
+                }
               },
               child: Text(l10n.signIn),
             ),
