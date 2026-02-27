@@ -58,8 +58,10 @@ class SyncService {
       final folderId = await _driveService.getOrCreateFolder('AntManagerBackup');
       if (folderId == null) {
          if (kDebugMode) {
-          print('Sync skipped: Could not create folder');
+          print('Sync skipped: Could not create folder or access denied');
         }
+        // If we can't create folder, maybe our auth is stale or permissions missing.
+        // We can't easily force re-auth here without UI interaction, but we log it.
         return;
       }
 

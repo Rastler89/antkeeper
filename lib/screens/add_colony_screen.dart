@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package:ant_manager/l10n/app_localizations.dart';
 import 'package:ant_manager/models/colony.dart';
 import 'package:ant_manager/providers/colony_provider.dart';
+import 'package:ant_manager/services/breeding_sheet_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
@@ -17,16 +19,15 @@ class AddColonyScreen extends StatefulWidget {
 class _AddColonyScreenState extends State<AddColonyScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _speciesController = TextEditingController();
   final _populationController = TextEditingController();
   final _descriptionController = TextEditingController();
   File? _selectedImage;
   final ImagePicker _picker = ImagePicker();
+  String? _selectedSpecies;
 
   @override
   void dispose() {
     _nameController.dispose();
-    _speciesController.dispose();
     _populationController.dispose();
     _descriptionController.dispose();
     super.dispose();
@@ -44,7 +45,7 @@ class _AddColonyScreenState extends State<AddColonyScreen> {
   Future<void> _saveColony() async {
     if (_formKey.currentState!.validate()) {
       final name = _nameController.text;
-      final species = _speciesController.text;
+      final species = _selectedSpecies!;
       final population = int.tryParse(_populationController.text) ?? 0;
       final description = _descriptionController.text;
       final id = DateTime.now().millisecondsSinceEpoch.toString();
@@ -76,9 +77,13 @@ class _AddColonyScreenState extends State<AddColonyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final sheets = BreedingSheetService(l10n).getSheets();
+    final speciesList = sheets.map((e) => e.species).toList();
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add New Colony'),
+        title: Text(l10n.addColony),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -101,11 +106,11 @@ class _AddColonyScreenState extends State<AddColonyScreen> {
                           _selectedImage!,
                           fit: BoxFit.cover,
                         )
-                      : const Column(
+                      : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.add_a_photo, size: 40, color: Colors.grey),
-                            Text('Tap to add photo'),
+                            const Icon(Icons.add_a_photo, size: 40, color: Colors.grey),
+                            Text(l10n.tapToAddPhoto),
                           ],
                         ),
                 ),
@@ -113,47 +118,58 @@ class _AddColonyScreenState extends State<AddColonyScreen> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(labelText: l10n.name),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a name';
+                    return l10n.pleaseEnterName;
                   }
                   return null;
                 },
               ),
-              TextFormField(
-                controller: _speciesController,
-                decoration: const InputDecoration(labelText: 'Species'),
+              DropdownButtonFormField<String>(
+                value: _selectedSpecies,
+                decoration: InputDecoration(labelText: l10n.species),
+                items: speciesList.map((String species) {
+                  return DropdownMenuItem<String>(
+                    value: species,
+                    child: Text(species),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedSpecies = newValue;
+                  });
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a species';
+                    return l10n.pleaseEnterSpecies;
                   }
                   return null;
                 },
               ),
               TextFormField(
                 controller: _populationController,
-                decoration: const InputDecoration(labelText: 'Initial Population'),
+                decoration: InputDecoration(labelText: l10n.initialPopulation),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a population';
+                    return l10n.pleaseEnterPopulation;
                   }
                   if (int.tryParse(value) == null) {
-                    return 'Please enter a valid number';
+                    return l10n.pleaseEnterValidNumber;
                   }
                   return null;
                 },
               ),
               TextFormField(
                 controller: _descriptionController,
-                decoration: const InputDecoration(labelText: 'Description'),
+                decoration: InputDecoration(labelText: l10n.description),
                 maxLines: 3,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _saveColony,
-                child: const Text('Save Colony'),
+                child: Text(l10n.saveColony),
               ),
             ],
           ),

@@ -1,3 +1,5 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:ant_manager/l10n/app_localizations.dart';
 import 'package:ant_manager/providers/colony_provider.dart';
 import 'package:ant_manager/providers/settings_provider.dart';
 import 'package:ant_manager/providers/stock_provider.dart';
@@ -48,13 +50,28 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ColonyProvider(syncService)),
         ChangeNotifierProvider(create: (_) => StockProvider(syncService)),
       ],
-      child: MaterialApp(
-        title: 'Ant Manager',
-        theme: ThemeData(
-          primarySwatch: Colors.brown,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: const HomeScreen(),
+      child: Consumer<SettingsProvider>(
+        builder: (context, settings, child) {
+          return MaterialApp(
+            title: 'Ant Manager',
+            theme: ThemeData(
+              primarySwatch: Colors.brown,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+            ),
+            locale: settings.locale,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'), // English
+              Locale('es'), // Spanish
+            ],
+            home: const HomeScreen(),
+          );
+        },
       ),
     );
   }

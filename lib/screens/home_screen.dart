@@ -1,3 +1,4 @@
+import 'package:ant_manager/l10n/app_localizations.dart';
 import 'package:ant_manager/models/stock_item.dart';
 import 'package:ant_manager/providers/stock_provider.dart';
 import 'package:ant_manager/screens/add_colony_screen.dart';
@@ -31,16 +32,17 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  String get _appBarTitle {
+  String _getAppBarTitle(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     switch (_selectedIndex) {
       case 0:
-        return 'Colonies';
+        return l10n.colonies;
       case 1:
-        return 'Breeding Sheets';
+        return l10n.breedingSheets;
       case 2:
-        return 'Stock';
+        return l10n.stock;
       default:
-        return 'Ant Manager';
+        return l10n.appTitle;
     }
   }
 
@@ -96,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showAddStockDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final nameController = TextEditingController();
     final quantityController = TextEditingController();
     final unitController = TextEditingController();
@@ -103,29 +106,29 @@ class _HomeScreenState extends State<HomeScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Add Stock Item'),
+        title: Text(l10n.addStockItem),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               controller: nameController,
-              decoration: const InputDecoration(labelText: 'Name'),
+              decoration: InputDecoration(labelText: l10n.name),
             ),
             TextField(
               controller: quantityController,
-              decoration: const InputDecoration(labelText: 'Quantity'),
+              decoration: InputDecoration(labelText: l10n.quantity),
               keyboardType: TextInputType.number,
             ),
             TextField(
               controller: unitController,
-              decoration: const InputDecoration(labelText: 'Unit (e.g. g, ml)'),
+              decoration: InputDecoration(labelText: l10n.unit),
             ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () {
@@ -145,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.of(ctx).pop();
               }
             },
-            child: const Text('Add'),
+            child: Text(l10n.add),
           ),
         ],
       ),
@@ -154,9 +157,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text(_appBarTitle),
+        title: Text(_getAppBarTitle(context)),
         actions: _appBarActions,
       ),
       body: Center(
@@ -164,18 +168,18 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: _floatingActionButton,
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Colonies',
+            icon: const Icon(Icons.home),
+            label: l10n.colonies,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Breeding Sheets',
+            icon: const Icon(Icons.book),
+            label: l10n.breedingSheets,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.inventory),
-            label: 'Stock',
+            icon: const Icon(Icons.inventory),
+            label: l10n.stock,
           ),
         ],
         currentIndex: _selectedIndex,

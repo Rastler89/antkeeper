@@ -1,3 +1,4 @@
+import 'package:ant_manager/l10n/app_localizations.dart';
 import 'package:ant_manager/providers/settings_provider.dart';
 import 'package:ant_manager/services/google_drive_service.dart';
 import 'package:ant_manager/services/sync_service.dart';
@@ -20,9 +21,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final settings = Provider.of<SettingsProvider>(context);
     final driveService = Provider.of<GoogleDriveService>(context, listen: false);
     final syncService = Provider.of<SyncService>(context, listen: false);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(title: Text(l10n.settings)),
       body: StreamBuilder<GoogleSignInAccount?>(
         stream: driveService.currentUserStream,
         initialData: driveService.currentUser,
@@ -31,9 +33,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
           return ListView(
             children: [
-              _buildAccountSection(context, driveService, user),
+              _buildLanguageSection(context, settings, l10n),
               const Divider(),
-              _buildSyncSection(context, settings, syncService, user),
+              _buildAccountSection(context, driveService, user, l10n),
+              const Divider(),
+              _buildSyncSection(context, settings, syncService, user, l10n),
             ],
           );
         },
@@ -41,27 +45,64 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildAccountSection(BuildContext context, GoogleDriveService driveService, GoogleSignInAccount? user) {
+  Widget _buildLanguageSection(BuildContext context, SettingsProvider settings, AppLocalizations l10n) {
+    return ListTile(
+      leading: const Icon(Icons.language),
+      title: Text(l10n.language),
+      trailing: DropdownButton<String>(
+        value: settings.locale.languageCode,
+        onChanged: (String? newValue) {
+          if (newValue != null) {
+            settings.setLocale(Locale(newValue));
+          }
+        },
+        items: const [
+          DropdownMenuItem(value: 'en', child: Text('English')),
+          DropdownMenuItem(value: 'es', child: Text('Español')),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAccountSection(BuildContext context, GoogleDriveService driveService, GoogleSignInAccount? user, AppLocalizations l10n) {
     return ListTile(
       leading: user != null
           ? GoogleUserCircleAvatar(identity: user)
           : const Icon(Icons.account_circle, size: 40),
-      title: Text(user != null ? user.displayName ?? 'User' : 'Not Signed In'),
-      subtitle: Text(user != null ? user.email : 'Sign in to sync data'),
+      title: Text(user != null ? user.displayName ?? 'User' : l10n.notSignedIn),
+      subtitle: Text(user != null ? user.email : l10n.signInToSync),
       trailing: user != null
           ? OutlinedButton(
               onPressed: () async {
                 await driveService.signOut();
                 // StreamBuilder will handle rebuild
               },
-              child: const Text('Sign Out'),
+              child: Text(l10n.signOut),
             )
           : ElevatedButton(
               onPressed: () async {
-                await driveService.signIn();
-                // StreamBuilder will handle rebuild
+                final error = await driveService.signInWithFeedback();
+                if (error != null && context.mounted) {
+                  String message = '${l10n.signInFailed}: $error';
+
+                  // Check for specific known errors to provide better guidance
+                  if (error.contains('ApiException: 10')) {
+                    message = '${l10n.signInFailed}: ${l10n.errorDeveloper}';
+                  }
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(message),
+                      duration: const Duration(seconds: 8),
+                      action: SnackBarAction(
+                        label: 'OK',
+                        onPressed: () {},
+                      ),
+                    ),
+                  );
+                }
               },
-              child: const Text('Sign In'),
+              child: Text(l10n.signIn),
             ),
     );
   }
@@ -71,14 +112,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
     SettingsProvider settings,
     SyncService syncService,
     GoogleSignInAccount? user,
+    AppLocalizations l10n,
   ) {
     final isEnabled = settings.isSyncEnabled && user != null;
 
     return Column(
       children: [
         SwitchListTile(
-          title: const Text('Enable Cloud Backup'),
-          subtitle: const Text('Sync data to Google Drive'),
+          title: Text(l10n.enableCloudBackup),
+          subtitle: Text(l10n.syncDataToDrive),
           value: settings.isSyncEnabled,
           onChanged: user == null
               ? null
@@ -87,7 +129,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
         ),
         ListTile(
-          title: const Text('Sync Interval'),
+          title: Text(l10n.syncInterval),
           trailing: DropdownButton<int>(
             value: settings.syncIntervalMinutes,
             onChanged: !settings.isSyncEnabled // Only enabled if sync is enabled (regardless of user? usually both)
@@ -97,11 +139,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       settings.setSyncInterval(value);
                     }
                   },
-            items: const [
-              DropdownMenuItem(value: 15, child: Text('15 Minutes')),
-              DropdownMenuItem(value: 60, child: Text('1 Hour')),
-              DropdownMenuItem(value: 360, child: Text('6 Hours')),
-              DropdownMenuItem(value: 1440, child: Text('Daily')),
+            items: [
+              DropdownMenuItem(value: 15, child: Text(l10n.minutes15)),
+              DropdownMenuItem(value: 60, child: Text(l10n.hour1)),
+              DropdownMenuItem(value: 360, child: Text(l10n.hours6)),
+              DropdownMenuItem(value: 1440, child: Text(l10n.daily)),
             ],
           ),
         ),
@@ -117,7 +159,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                     )
                   : const Icon(Icons.sync),
-              label: const Text('Sync Now'),
+              label: Text(l10n.syncNow),
               onPressed: (!isEnabled || _isSyncingNow)
                   ? null
                   : () async {
@@ -130,7 +172,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           _isSyncingNow = false;
                         });
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Sync completed')),
+                          SnackBar(content: Text(l10n.syncCompleted)),
                         );
                       }
                     },
