@@ -176,4 +176,33 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get errorDeveloper =>
       'Error de configuración. Verifique la huella digital SHA-1 de su aplicación en la consola de Google Cloud.';
+
+  @override
+  String get exportData => 'Exportar Datos';
+
+  @override
+  String get scanQrCode => 'Escanea este código QR para exportar datos:';
+
+  @override
+  String get largeDataWarning =>
+      'Nota: Los datos grandes pueden no caber en un solo código QR.';
+
+  @override
+  String get exportToFile => 'Exportar a Archivo';
+
+  @override
+  String get importFromFile => 'Importar desde Archivo';
+
+  @override
+  String get backupSuccessful => 'Copia de seguridad exportada correctamente';
+
+  @override
+  String get importSuccessful =>
+      'Datos importados correctamente. Por favor reinicia o actualiza.';
+
+  @override
+  String get errorBackup => 'Error durante la copia de seguridad';
+
+  @override
+  String get errorImport => 'Error durante la importación';
 }

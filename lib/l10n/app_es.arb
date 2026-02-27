@@ -53,5 +53,14 @@
     "hard": "Difícil",
     "seedsInsects": "Semillas, insectos",
     "sugarWaterInsects": "Agua con azúcar, insectos",
-    "errorDeveloper": "Error de configuración. Verifique la huella digital SHA-1 de su aplicación en la consola de Google Cloud."
+    "errorDeveloper": "Error de configuración. Verifique la huella digital SHA-1 de su aplicación en la consola de Google Cloud.",
+    "exportData": "Exportar Datos",
+    "scanQrCode": "Escanea este código QR para exportar datos:",
+    "largeDataWarning": "Nota: Los datos grandes pueden no caber en un solo código QR.",
+    "exportToFile": "Exportar a Archivo",
+    "importFromFile": "Importar desde Archivo",
+    "backupSuccessful": "Copia de seguridad exportada correctamente",
+    "importSuccessful": "Datos importados correctamente. Por favor reinicia o actualiza.",
+    "errorBackup": "Error durante la copia de seguridad",
+    "errorImport": "Error durante la importación"
 }

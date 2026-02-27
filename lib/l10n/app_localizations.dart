@@ -427,6 +427,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Configuration error. Please verify your app\'s SHA-1 fingerprint in the Google Cloud Console.'**
   String get errorDeveloper;
+
+  /// No description provided for @exportData.
+  ///
+  /// In en, this message translates to:
+  /// **'Export Data'**
+  String get exportData;
+
+  /// No description provided for @scanQrCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan this QR code to export data:'**
+  String get scanQrCode;
+
+  /// No description provided for @largeDataWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: Large data might not fit in a single QR code.'**
+  String get largeDataWarning;
+
+  /// No description provided for @exportToFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Export to File'**
+  String get exportToFile;
+
+  /// No description provided for @importFromFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from File'**
+  String get importFromFile;
+
+  /// No description provided for @backupSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup exported successfully'**
+  String get backupSuccessful;
+
+  /// No description provided for @importSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Data imported successfully. Please restart the app or refresh.'**
+  String get importSuccessful;
+
+  /// No description provided for @errorBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Error during backup'**
+  String get errorBackup;
+
+  /// No description provided for @errorImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Error during import'**
+  String get errorImport;
 }
 
 class _AppLocalizationsDelegate

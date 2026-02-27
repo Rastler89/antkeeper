@@ -176,4 +176,33 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errorDeveloper =>
       'Configuration error. Please verify your app\'s SHA-1 fingerprint in the Google Cloud Console.';
+
+  @override
+  String get exportData => 'Export Data';
+
+  @override
+  String get scanQrCode => 'Scan this QR code to export data:';
+
+  @override
+  String get largeDataWarning =>
+      'Note: Large data might not fit in a single QR code.';
+
+  @override
+  String get exportToFile => 'Export to File';
+
+  @override
+  String get importFromFile => 'Import from File';
+
+  @override
+  String get backupSuccessful => 'Backup exported successfully';
+
+  @override
+  String get importSuccessful =>
+      'Data imported successfully. Please restart the app or refresh.';
+
+  @override
+  String get errorBackup => 'Error during backup';
+
+  @override
+  String get errorImport => 'Error during import';
 }

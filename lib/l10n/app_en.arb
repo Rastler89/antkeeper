@@ -53,5 +53,14 @@
     "hard": "Hard",
     "seedsInsects": "Seeds, insects",
     "sugarWaterInsects": "Sugar water, insects",
-    "errorDeveloper": "Configuration error. Please verify your app's SHA-1 fingerprint in the Google Cloud Console."
+    "errorDeveloper": "Configuration error. Please verify your app's SHA-1 fingerprint in the Google Cloud Console.",
+    "exportData": "Export Data",
+    "scanQrCode": "Scan this QR code to export data:",
+    "largeDataWarning": "Note: Large data might not fit in a single QR code.",
+    "exportToFile": "Export to File",
+    "importFromFile": "Import from File",
+    "backupSuccessful": "Backup exported successfully",
+    "importSuccessful": "Data imported successfully. Please restart the app or refresh.",
+    "errorBackup": "Error during backup",
+    "errorImport": "Error during import"
 }
