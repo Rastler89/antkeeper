@@ -22,9 +22,16 @@ class GoogleDriveService {
       _currentUser = account;
       if (_currentUser != null) {
         // Create an authenticated client
-        final client = await _googleSignIn.authenticatedClient();
-        if (client != null) {
-          _driveApi = drive.DriveApi(client);
+        try {
+          final client = await _googleSignIn.authenticatedClient();
+          if (client != null) {
+            _driveApi = drive.DriveApi(client);
+          }
+        } catch (e) {
+          if (kDebugMode) {
+            print('Error getting authenticated client: $e');
+          }
+          _driveApi = null;
         }
       } else {
         _driveApi = null;

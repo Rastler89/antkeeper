@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ant_manager/l10n/app_localizations.dart';
 import 'package:ant_manager/providers/colony_provider.dart';
 import 'package:ant_manager/screens/colony_detail_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,13 +20,14 @@ class ColonyListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Consumer<ColonyProvider>(
       builder: (context, provider, child) {
         if (provider.isLoading) {
           return const Center(child: CircularProgressIndicator());
         }
         if (provider.colonies.isEmpty) {
-          return const Center(child: Text('No colonies yet. Add one!'));
+          return Center(child: Text(l10n.noColoniesYet));
         }
         return ListView.builder(
           itemCount: provider.colonies.length,

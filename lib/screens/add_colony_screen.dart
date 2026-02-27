@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ant_manager/l10n/app_localizations.dart';
 import 'package:ant_manager/models/colony.dart';
 import 'package:ant_manager/providers/colony_provider.dart';
 import 'package:flutter/material.dart';
@@ -76,9 +77,10 @@ class _AddColonyScreenState extends State<AddColonyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add New Colony'),
+        title: Text(l10n.addColony),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -101,11 +103,11 @@ class _AddColonyScreenState extends State<AddColonyScreen> {
                           _selectedImage!,
                           fit: BoxFit.cover,
                         )
-                      : const Column(
+                      : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.add_a_photo, size: 40, color: Colors.grey),
-                            Text('Tap to add photo'),
+                            const Icon(Icons.add_a_photo, size: 40, color: Colors.grey),
+                            Text(l10n.tapToAddPhoto),
                           ],
                         ),
                 ),
@@ -113,47 +115,47 @@ class _AddColonyScreenState extends State<AddColonyScreen> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(labelText: l10n.name),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a name';
+                    return l10n.pleaseEnterName;
                   }
                   return null;
                 },
               ),
               TextFormField(
                 controller: _speciesController,
-                decoration: const InputDecoration(labelText: 'Species'),
+                decoration: InputDecoration(labelText: l10n.species),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a species';
+                    return l10n.pleaseEnterSpecies;
                   }
                   return null;
                 },
               ),
               TextFormField(
                 controller: _populationController,
-                decoration: const InputDecoration(labelText: 'Initial Population'),
+                decoration: InputDecoration(labelText: l10n.initialPopulation),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a population';
+                    return l10n.pleaseEnterPopulation;
                   }
                   if (int.tryParse(value) == null) {
-                    return 'Please enter a valid number';
+                    return l10n.pleaseEnterValidNumber;
                   }
                   return null;
                 },
               ),
               TextFormField(
                 controller: _descriptionController,
-                decoration: const InputDecoration(labelText: 'Description'),
+                decoration: InputDecoration(labelText: l10n.description),
                 maxLines: 3,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _saveColony,
-                child: const Text('Save Colony'),
+                child: Text(l10n.saveColony),
               ),
             ],
           ),
